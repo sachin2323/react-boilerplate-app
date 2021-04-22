@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -10,7 +10,9 @@ import Store from "./store/store";
 
 ReactDOM.hydrate(
   <Provider store={Store}>
-    <App />
+    <Suspense fallback={<div>Loading... </div>}>
+      <App />
+    </Suspense>
   </Provider>,
   document.getElementById("root")
 );

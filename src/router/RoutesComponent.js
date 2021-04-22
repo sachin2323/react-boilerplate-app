@@ -1,18 +1,19 @@
-import React, { Component } from "react";
+import React, { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 
 // Page
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
+const HomePage = lazy(() => import("../pages/HomePage"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
 
-class RoutesComponent extends Component {
-  render() {
-    return (
-      <div>
+const RoutesComponent = () => {
+  return (
+    <div>
+      <Suspense>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={LoginPage} />
-      </div>
-    );
-  }
-}
+      </Suspense>
+    </div>
+  );
+};
+
 export default RoutesComponent;

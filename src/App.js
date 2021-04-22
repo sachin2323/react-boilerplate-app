@@ -1,29 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import RouterComponent from "./router/RouterComponent";
 
-import "./App.css";
 import { setUserToken } from "./store/actions/auth.action";
 import { USER_TOKEN } from "./constants";
 
-class App extends Component {
-  componentDidMount() {
+const App = (props) => {
+  useEffect(() => {
     const token = localStorage.getItem(USER_TOKEN);
     if (token) {
-      this.props.setUserToken({ token });
+      props.setUserToken({ token });
     }
-  }
+  }, []);
 
-  render() {
-    const { user } = this.props || {};
-    return (
-      <div>
-        <RouterComponent user={user} />
-      </div>
-    );
-  }
-}
+  const { user } = props || {};
+  return (
+    <div>
+      <RouterComponent user={user} />
+    </div>
+  );
+};
+
 function mapStateToProps(state) {
   return {
     user: state.user,
