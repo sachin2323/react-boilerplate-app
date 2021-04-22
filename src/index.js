@@ -6,16 +6,17 @@ import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 
 // Redux
-import Store from "./store/store";
+import store from "./store/store";
+const MyContext = React.createContext();
 
-ReactDOM.hydrate(
-  <Provider store={Store}>
+const MyAppWithStore = () => (
+  <Provider store={store} context={MyContext}>
     <Suspense fallback={<div>Loading... </div>}>
       <App />
     </Suspense>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
+ReactDOM.hydrate(<MyAppWithStore />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

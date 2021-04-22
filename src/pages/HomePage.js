@@ -8,22 +8,16 @@ import { logout } from "../store/actions/auth.action";
 import Landing from "../components/Landing";
 import Home from "../components/Home";
 
-class HomePage extends Component {
-  onClick = (e) => {
+const HomePage = (props) => {
+  const onClick = (e) => {
     e.preventDefault();
     localStorage.removeItem(USER_TOKEN);
-    this.props.logout();
+    props.logout();
   };
 
-  render() {
-    const { user } = this.props || {};
-    return user && user.token ? (
-      <Home logout={(e) => this.onClick(e)} />
-    ) : (
-      <Landing />
-    );
-  }
-}
+  const { user } = this.props || {};
+  return user && user.token ? <Home logout={(e) => onClick(e)} /> : <Landing />;
+};
 
 // Store
 function mapStateToProps(state) {
