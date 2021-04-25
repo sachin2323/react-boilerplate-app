@@ -3,18 +3,19 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
+import { createStore } from 'redux';
+import Reducers from './store/reducers';
 import reportWebVitals from "./reportWebVitals";
 
 // Redux
-import store from "./store/store";
-const MyContext = React.createContext();
+const store = createStore(Reducers);
 
 const MyAppWithStore = () => (
-  <Provider store={store} context={MyContext}>
-    <Suspense fallback={<div>Loading... </div>}>
-      <App />
-    </Suspense>
-  </Provider>
+	<Suspense fallback={<div>Loading... </div>}>
+		<Provider store={store} >
+			<App />
+		</Provider>
+	</Suspense>
 );
 ReactDOM.hydrate(<MyAppWithStore />, document.getElementById("root"));
 
