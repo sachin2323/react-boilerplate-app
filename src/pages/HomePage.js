@@ -1,11 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React from "react";
 import { useSelector } from "react-redux";
-
 import { USER_TOKEN } from "../constants";
-import { logout } from "../store/actions/auth.action";
-
 import Landing from "../components/Landing";
 import Home from "../components/Home";
 
@@ -20,16 +15,5 @@ const HomePage = (props) => {
 
 	return user && user.token ? <Home logout={(e) => onClick(e)} /> : <Landing />;
 };
-
-// Store
-function mapStateToProps(state) {
-	return {
-		user: state.user,
-	};
-}
-
-function matchDispatchToProps(dispatch) {
-	return bindActionCreators({ logout }, dispatch);
-}
 
 export default HomePage;
