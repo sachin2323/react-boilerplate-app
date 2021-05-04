@@ -1,18 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import RoutesComponent from "./RoutesComponent";
+// Page
+const HomePage = lazy(() => import("../pages/HomePage"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
 
 const RouterComponent = (props) => {
-  const user = props.user || {};
-  return (
-    <Router basename="/">
-      <div>
-        <RoutesComponent user={user} />
-      </div>
-    </Router>
-  );
+
+	return (
+		<Router basename="/">
+			<Suspense>
+				<Switch>
+					<Route exact path="/" component={HomePage} />
+					<Route exact path="/login" component={LoginPage} />
+				</Switch>
+			</Suspense>
+		</Router>
+	);
 };
 
-export default connect()(RouterComponent);
+export default RouterComponent;

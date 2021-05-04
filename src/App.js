@@ -1,33 +1,21 @@
-import React, { Component, useEffect } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { useEffect } from "react";
 import RouterComponent from "./router/RouterComponent";
-
 import { setUserToken } from "./store/actions/auth.action";
 import { USER_TOKEN } from "./constants";
+import { useDispatch } from 'react-redux';
 
 const App = (props) => {
-  useEffect(() => {
-    const token = localStorage.getItem(USER_TOKEN);
-    if (token) {
-      props.setUserToken({ token });
-    }
-  }, []);
+	const dispatch = useDispatch();
 
-  const { user } = props || {};
-  return (
-    <div>
-      <RouterComponent user={user} />
-    </div>
-  );
+	useEffect(() => {
+		const token = localStorage.getItem(USER_TOKEN);
+		if (token) dispatch(setUserToken(token));
+	}, []);
+
+	return (
+		<RouterComponent />
+	);
 };
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setUserToken }, dispatch);
-}
-export default connect(mapStateToProps, matchDispatchToProps)(App);
+export default App;
+
